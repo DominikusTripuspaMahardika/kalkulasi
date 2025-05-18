@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kalkulator ViVienDo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>🧮</text></svg>">
+</head>
+<body>
+  <main class="calculator fullscreen">
+
+    <!-- Header dengan ikon -->
+    <header class="calc-header">
+      <button id="btn-history" aria-label="Riwayat Kalkulasi" title="Riwayat Kalkulasi">
+        <svg class="icon icon-history" viewBox="0 0 24 24"><path d="M13 3a9 9 0 1 0 6.364 2.636L18 7"/></svg>
+      </button>
+      <button id="btn-voice" aria-label="Input Suara" title="Input Suara">
+        <svg class="icon icon-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V4a3 3 0 0 1 3-3z"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/></svg>
+      </button>
+      <button id="btn-theme" aria-label="Pilih Tema" title="Pilih Tema">
+        <svg class="icon icon-brush" viewBox="0 0 24 24"><path d="M2 17l7-7 4 4-7 7-4-4z"/></svg>
+      </button>
+      <button id="btn-timer" aria-label="Timer & Pengingat" title="Timer & Pengingat">
+        <svg class="icon icon-timer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </button>
+      <button id="btn-undo" aria-label="Undo" title="Undo (Ctrl+Z)">
+        <svg class="icon icon-undo" viewBox="0 0 24 24"><path d="M7 7v6h6"/></svg>
+      </button>
+      <button id="btn-redo" aria-label="Redo" title="Redo (Ctrl+Y)">
+        <svg class="icon icon-redo" viewBox="0 0 24 24"><path d="M17 17v-6h-6"/></svg>
+      </button>
+    </header>
+
+    <!-- Panel Input & Display -->
+    <section class="display-section">
+      <input type="text" id="calc-input" class="calc-input" aria-label="Input Kalkulator" autocomplete="off" spellcheck="false" placeholder="Masukkan angka" disabled/>
+      <div id="calc-result" class="calc-result" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <!-- Tombol Kalkulator -->
+    <section class="buttons-section" role="application" aria-label="Tombol kalkulator">
+      <button class="btn btn-clear" id="btn-reset" aria-label="Reset Kalkulator">AC</button>
+      <button class="btn btn-del" id="btn-del" aria-label="Hapus karakter terakhir">Del</button>
+      <button class="btn btn-op" data-op="/" aria-label="Bagi">/</button>
+      <button class="btn btn-op" data-op="*" aria-label="Kali">x</button>
+
+      <button class="btn btn-num" data-num="7">7</button>
+      <button class="btn btn-num" data-num="8">8</button>
+      <button class="btn btn-num" data-num="9">9</button>
+      <button class="btn btn-op" data-op="-" aria-label="Kurang">-</button>
+
+      <button class="btn btn-num" data-num="4">4</button>
+      <button class="btn btn-num" data-num="5">5</button>
+      <button class="btn btn-num" data-num="6">6</button>
+      <button class="btn btn-op" data-op="+" aria-label="Tambah">+</button>
+
+      <button class="btn btn-num" data-num="1">1</button>
+      <button class="btn btn-num" data-num="2">2</button>
+      <button class="btn btn-num" data-num="3">3</button>
+      <button class="btn btn-eq" id="btn-equal" aria-label="Sama dengan">=</button>
+
+      <button class="btn btn-num" data-num="0">0</button>
+      <button class="btn btn-num" data-num="00">00</button>
+      <button class="btn btn-num" data-num=",">,</button>
+    </section>
+
+    <!-- Panel Riwayat -->
+    <aside id="history-panel" class="panel history-panel" aria-label="Panel riwayat kalkulasi" hidden>
+      <header>
+        <h2>Riwayat</h2>
+        <button id="btn-close-history" aria-label="Tutup riwayat">X</button>
+      </header>
+      <ul id="history-list" tabindex="0" role="list"></ul>
+      <button id="btn-clear-history" aria-label="Hapus semua riwayat">Hapus Semua</button>
+    </aside>
+
+    <!-- Panel Tema -->
+    <aside id="theme-panel" class="panel theme-panel" aria-label="Panel pilihan tema" hidden>
+      <header>
+        <h2>Pilih Tema</h2>
+        <button id="btn-close-theme" aria-label="Tutup tema">X</button>
+      </header>
+      <ul class="theme-list" role="list">
+        <li><button class="theme-swatch" data-theme="light" aria-label="Tema Light">Light</button></li>
+        <li><button class="theme-swatch" data-theme="dark" aria-label="Tema Dark">Dark</button></li>
+        <li><button class="theme-swatch" data-theme="blue" aria-label="Tema Blue">Blue</button></li>
+        <li><button class="theme-swatch" data-theme="red" aria-label="Tema Red">Red</button></li>
+        <li><button class="theme-swatch" data-theme="green" aria-label="Tema Green">Green</button></li>
+      </ul>
+    </aside>
+
+    <!-- Panel Timer -->
+    <aside id="timer-panel" class="panel timer-panel" aria-label="Panel timer dan pengingat" hidden>
+      <header>
+        <h2>Timer & Pengingat</h2>
+        <button id="btn-close-timer" aria-label="Tutup timer">X</button>
+      </header>
+      <div class="timer-controls">
+        <div class="timer-group">
+          <div class="timer-field">
+            <label for="timer-hours">Jam</label>
+            <input type="number" id="timer-hours" min="0" max="23" value="0" inputmode="numeric" />
+          </div>
+          <div class="timer-field">
+            <label for="timer-minutes">Menit</label>
+            <input type="number" id="timer-minutes" min="0" max="59" value="0" inputmode="numeric" />
+          </div>
+          <div class="timer-field">
+            <label for="timer-seconds">Detik</label>
+            <input type="number" id="timer-seconds" min="0" max="59" value="0" inputmode="numeric" />
+          </div>
+        </div>
+        <div class="timer-buttons">
+          <button id="timer-start">Mulai</button>
+          <button id="timer-pause" disabled>Jeda</button>
+          <button id="timer-reset" disabled>Reset</button>
+        </div>
+      </div>
+      <div id="timer-display" aria-live="polite" aria-atomic="true">00:00:00</div>
+    </aside>
+
+    <!-- Notifikasi Error -->
+    <div id="error-notification" role="alert" aria-live="assertive" aria-atomic="true" hidden></div>
+
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

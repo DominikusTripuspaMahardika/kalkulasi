@@ -1,0 +1,571 @@
+/* Reset dan dasar */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Variabel tema */
+:root {
+  --bg: #f5f5f5;
+  --text: #222;
+  --btn-bg: #fff;
+  --btn-hover: #ddd;
+  --primary: #0078d7;
+  --accent: #005a9e;
+  --error: #e53e3e;
+  --panel-bg: #fff;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --ripple-color: rgba(0, 120, 215, 0.3);
+}
+
+/* Tema Dark */
+[data-theme="dark"] {
+  --bg: #1e1e1e;
+  --text: #eee;
+  --btn-bg: #333;
+  --btn-hover: #444;
+  --primary: #0a84ff;
+  --accent: #0066cc;
+  --error: #ff6b6b;
+  --panel-bg: #2a2a2a;
+  --shadow: rgba(0, 0, 0, 0.7);
+  --ripple-color: rgba(10, 132, 255, 0.3);
+}
+
+/* Tema Blue */
+[data-theme="blue"] {
+  --bg: #e6f0ff;
+  --text: #003366;
+  --btn-bg: #cce0ff;
+  --btn-hover: #b3d1ff;
+  --primary: #005bb5;
+  --accent: #003d80;
+  --error: #cc0000;
+  --panel-bg: #d9e6ff;
+  --shadow: rgba(0, 0, 51, 0.3);
+  --ripple-color: rgba(0, 91, 181, 0.3);
+}
+
+/* Tema Red */
+[data-theme="red"] {
+  --bg: #fff0f0;
+  --text: #660000;
+  --btn-bg: #ffd6d6;
+  --btn-hover: #ffb3b3;
+  --primary: #cc0000;
+  --accent: #800000;
+  --error: #cc0000;
+  --panel-bg: #ffdada;
+  --shadow: rgba(102, 0, 0, 0.3);
+  --ripple-color: rgba(204, 0, 0, 0.3);
+}
+
+/* Tema Green */
+[data-theme="green"] {
+  --bg: #f0fff0;
+  --text: #004400;
+  --btn-bg: #d6ffd6;
+  --btn-hover: #b3ffb3;
+  --primary: #008000;
+  --accent: #004d00;
+  --error: #cc0000;
+  --panel-bg: #daffda;
+  --shadow: rgba(0, 68, 0, 0.3);
+  --ripple-color: rgba(0, 136, 0, 0.3);
+}
+
+/* Layout kalkulator fullscreen */
+.calculator {
+  width: 100vw;
+  min-height: 100dvh;
+  height: auto;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px var(--shadow);
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+
+/* Header dengan ikon */
+.calc-header {
+  display: flex;
+  gap: 10px;
+  background: var(--panel-bg);
+  padding: 10px 15px;
+  align-items: center;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.calc-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calc-header button:hover,
+.calc-header button:focus {
+  background-color: var(--btn-hover);
+  outline: none;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke: var(--text);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Display input & hasil */
+.display-section {
+  background: var(--panel-bg);
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.calc-input {
+  font-size: 2.4rem;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  width: 100%;
+  padding: 0 5px;
+  user-select: text;
+}
+
+.calc-result {
+  font-size: 1.5rem;
+  color: var(--primary);
+  min-height: 1.8rem;
+  user-select: text;
+  word-break: break-word;
+}
+
+/* Tombol kalkulator */
+.buttons-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 15px;
+  background: var(--panel-bg);
+  flex-grow: 1;
+  user-select: none;
+  overflow-y: auto;
+}
+
+.btn {
+  font-size: 1.6 rem;
+  border: none;
+  border-radius: 8px;
+  padding: 18px 0;
+  background-color: var(--btn-bg);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 2px 4px var(--shadow);
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  user-select: none;
+  min-height: 48px; /* Supaya tombol tetap klikable di layar kecil */
+  flex: 1 1 auto;    /* Fleksibel */
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--btn-hover);
+  outline: none;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-op {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.btn-eq {
+  grid-row: span 2;
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn-clear {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-del {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+/* Panel samping: Riwayat, Tema, Timer */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: var(--panel-bg);
+  box-shadow: -3px 0 8px var(--shadow);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  user-select: text;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel.active {
+  transform: translateX(0);
+}
+
+.panel header {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--btn-hover);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel header h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+
+.panel header button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.panel header button:hover,
+.panel header button:focus {
+  color: var(--primary);
+  outline: none;
+}
+
+/* Riwayat */
+#history-list {
+  overflow-y: auto;
+  padding: 10px 15px;
+  flex-grow: 1;
+  list-style: none;
+  margin: 0;
+}
+
+#history-list li {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--btn-hover);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--text);
+  user-select: text;
+}
+
+#history-list li:hover,
+#history-list li:focus {
+  background-color: var(--btn-hover);
+  outline: none;
+}
+
+/* Tema */
+.theme-list {
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.theme-swatch {
+  flex: 1 1 100px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  background: var(--btn-bg);
+  border: 2px solid transparent;
+  color: var(--text);
+  text-align: center;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  user-select: none;
+}
+
+.theme-swatch:hover,
+.theme-swatch:focus {
+  border-color: var(--primary);
+  outline: none;
+  background-color: var(--btn-hover);
+}
+
+/* Timer Panel */
+.timer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+}
+
+.timer-controls label {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.timer-controls input {
+  width: 60px;
+  font-size: 1.2rem;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--btn-hover);
+  text-align: center;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.timer-buttons button {
+  flex: 1;
+  padding: 10px 0;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--primary);
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.timer-buttons button:disabled {
+  background-color: var(--btn-hover);
+  cursor: not-allowed;
+}
+
+#timer-display {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 10px;
+  color: var(--accent);
+}
+
+/* Error notifikasi */
+#error-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--error);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px var(--shadow);
+  z-index: 2000;
+  user-select: none;
+  max-width: 90vw;
+  text-align: center;
+}
+
+/* Responsif */
+@media (max-width: 480px) {
+  .buttons-section {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 10px;
+  }
+  .btn {
+    font-size: 1.4rem;
+    padding: 14px 0;
+  }
+  .calc-input {
+    font-size: 2rem;
+  }
+  .calc-result {
+    font-size: 1.2rem;
+  }
+  .panel {
+    width: 100%;
+  }
+}
+
+/* Animasi Fade */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Animasi Bounce */
+@keyframes bounceIn {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Efek Ripple */
+.btn::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background: var(--ripple-color);
+  transform: scale(0);
+  opacity: 0.6;
+  transition: transform 0.5s, opacity 1s;
+  pointer-events: none;
+}
+.btn:active::after {
+  transform: scale(2.5);
+  opacity: 0;
+}
+
+/* Panel aktif dengan animasi fade dan bounce */
+.panel.active {
+  transform: translateX(0);
+  animation: fadeIn 0.3s ease, bounceIn 0.4s ease;
+  opacity: 1;
+}
+
+/* Tambahkan efek transisi saat panel disembunyikan (opsional) */
+.panel[hidden] {
+  animation: fadeOut 0.2s ease;
+}
+
+/* Tombol Hapus Semua Riwayat */
+#btn-clear-history {
+  margin: 12px auto;
+  display: block;
+  background-color: var(--error);
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px var(--shadow);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#btn-clear-history:hover,
+#btn-clear-history:focus {
+  background-color: #c53030;
+  transform: scale(1.05);
+  outline: none;
+}
+
+#btn-clear-history:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+  #btn-clear-history {
+    width: 90%;
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
+
+/* Gaya umum untuk timer group */
+.timer-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 1rem;
+}
+
+/* Gaya untuk setiap field (jam, menit, detik) */
+.timer-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 100px;
+}
+
+.timer-field label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.timer-field input[type="number"] {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timer-field input[type="number"]:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 480px) {
+  .timer-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .timer-field {
+    width: 100%;
+  }
+}
