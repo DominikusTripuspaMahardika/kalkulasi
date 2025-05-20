@@ -12,7 +12,7 @@ Timer & Pengingat: Fitur timer yang dapat disesuaikan untuk berbagai kebutuhan p
 
 📝 Langkah-langkah Penggunaan
 1. Mengakses Aplikasi
-Buka browser Anda dan kunjungi: https://dominikustripuspamahardika.github.io/kalkulator/
+Buka browser Anda dan kunjungi: https://dominikustripuspamahardika.github.io/kalkulasi/
 
 2. Melakukan Perhitungan
 Gunakan tombol angka dan operator untuk memasukkan perhitungan.
